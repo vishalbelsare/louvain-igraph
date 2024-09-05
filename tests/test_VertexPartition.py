@@ -5,8 +5,6 @@ import random
 
 from ddt import ddt, data, unpack
 
-import sys
-PY3 = (sys.version > '3');
 #%%
 
 def name_object(obj, name):
@@ -44,11 +42,11 @@ graphs = [
 
     ############################################################################
     # Tree
-    name_object(ig.Graph.Tree(100, 3, type=ig.TREE_UNDIRECTED),
+    name_object(ig.Graph.Tree(100, 3, mode='undirected'),
                 'Tree_undirected'),
-    name_object(ig.Graph.Tree(100, 3, type=ig.TREE_OUT),
+    name_object(ig.Graph.Tree(100, 3, mode='out'),
                 'Tree_directed_out'),
-    name_object(ig.Graph.Tree(100, 3, type=ig.TREE_IN),
+    name_object(ig.Graph.Tree(100, 3, mode='in'),
                 'Tree_directed_in'),
 
     ############################################################################
@@ -61,10 +59,7 @@ graphs = [
 
 def make_weighted(G):
   m = G.ecount();
-  if PY3: 
-    G.es['weight'] = [random.random() for i in range(G.ecount())];
-  else:
-    G.es['weight'] = [random.random() for i in xrange(G.ecount())];
+  G.es['weight'] = [random.random() for i in range(G.ecount())];
   G.__name__ += '_weighted';
   return G;
 
